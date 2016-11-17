@@ -1,0 +1,951 @@
+<html ng-app="myapp">
+    <head>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/prettyPhoto.css" rel="stylesheet">
+        <link href="css/price-range.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+		<link href="malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.css" rel="stylesheet">
+		<style>
+			.product-overlay{
+				background-color:rgba(254, 152, 15, 0.7);
+			}
+		</style>
+        <title> Home | ShopperNG </title> 
+
+    </head>
+    <body>
+        <header id="header"><!--header-->
+            <div class="header_top"><!--header_top-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="contactinfo">
+                                <ul class="nav nav-pills">
+                                    <li><a href=""><i class="fa fa-phone"></i> +234 705 753 8496</a></li>
+                                    <li><a href=""><i class="glyphicon glyphicon-envelope"></i> info@shopperng.com</a></li><!--email link -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="social-icons pull-right">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="http://www.facebook.com/shopperng"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="http://www.twitter.com/shopperng"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="http://www.linkedin.com/shopperng"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="http://www.dibble.com/shopperng"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="http://www.plus.google.com/shopperng"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header_top-->
+
+
+            <div class="header-middle"><!--header-middle-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="logo pull-left">
+                                <a href="/"><img src="images/logo3.png" alt="400"/></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="shop-menu pull-right">
+                                <ul class="nav navbar-nav">
+                                    <li><a href=""><i class="glyphicon glyphicon-user"></i> Account</a></li>
+                                    <li><a href=""><i class="glyphicon glyphicon-star"></i> Wishlist</a></li>
+                                    <li><a href="/checkout"><i class="glyphicon glyphicon-road"></i> Checkout</a></li>
+                                    <li><a href="/cart" ng-controller="cartItemsController" ng-click="getCart()"><span class="badge" ng-cloak>{{numberItemsBought}}</span> Cart</a></li>
+                                    <li><a href="/login"><i class="glyphicon glyphicon-lock"></i>Login</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header-middle-->
+
+
+            <div class="header-bottom"><!--header-bottom-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="mainmenu pull-left">
+                                <ul class="nav navbar-nav collapse navbar-collapse">
+                                    <li><a href="/"  class="active">Home</a></li>
+                                    <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                                        <ul role="menu" class="sub-menu">
+                                            <li><a href="shop.html">Products</a></li>
+                                            <li><a href="product-details.html">Product Details</a></li> 
+                                            <li><a href="checkout.html">Checkout</a></li> 
+                                            <li><a href="cart.html">Cart</a></li> 
+                                            <li><a href="login.html">Login</a></li> 
+                                        </ul>
+                                    </li> 
+                                    <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                        <ul role="menu" class="sub-menu">
+                                            <li><a href="blog.html">Blog List</a></li>
+                                            <li><a href="blog-single.html">Blog Single</a></li>
+                                        </ul>
+                                    </li> 
+                                    <li><a href="404.html">404</a></li>
+                                    <li><a href="contact-us.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="search_box pull-right" ng-controller="searchController" ng-cloak>
+                                <input type="text" placeholder="Search" ng-model="searchQuery"  ng-change="search()" ng-focus="boxShowed=true" ng-blur="boxShowed=false"></input>
+                                <div class="well" ng-show="boxShowed">
+                                    <ul class="list-group">
+                                        <li class="list-item" ng-repeat="x in searchResponse"><a href="">{{x["Product_Name"]}}</a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header-bottom-->
+        </header><!--/header-->
+
+        <section id="slider"><!--slider-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#slider-carousel" data-slide-to="1"></li>
+                                <li data-target="#slider-carousel" data-slide-to="2"></li>
+                            </ol>
+                            
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="col-sm-6">
+                                        <h1><span>Shopper</span>NG</h1>
+                                        <h2>E-Commerce Site</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <button type="button" class="btn btn-default get">Get it now</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />
+                                        <img src="images/home/pricing.png"  class="pricing" alt="" />
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="col-sm-6">
+                                        <h1><span>Shopper</span>NG</h1>
+                                        <h2>100% Responsive Design</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <button type="button" class="btn btn-default get">Get it now</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />
+                                        <img src="images/home/pricing.png"  class="pricing" alt="" />
+                                    </div>
+                                </div>
+                                
+                                <div class="item">
+                                    <div class="col-sm-6">
+                                        <h1><span>Shopper</span>NG</h1>
+                                        <h2>E-Commerce Site</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                        <button type="button" class="btn btn-default get">Get it now</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />
+                                        <img src="images/home/pricing.png" class="pricing" alt="" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+		    </div>
+	    </section><!--/slider-->
+
+        <section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							<div class="panel panel-default" ng-controller="togglePhonesTablets">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="" ng-click="showDiv=!showDiv">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Phones/Tablets
+										</a>
+									</h4>
+								</div>
+								<div id="phonestablets" ng-show="showDiv" class="panel">
+									<div class="panel-body">
+										<ul>
+											<li><a href="#">{{itemPhonesTablets1}} </a></li>
+											<li><a href="#">{{itemPhonesTablets2}}</a></li>
+											<li><a href="#">{{itemPhonesTablets3}} </a></li>
+											<li><a href="#">{{itemPhonesTablets4}}</a></li>
+											<li><a href="#">{{itemPhonesTablets5}}</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default" ng-controller="toggleHomeAppliances">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a ng-click="showDiv=!showDiv" href="">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Home Appliances
+										</a>
+									</h4>
+								</div>
+								<div id="homeappliances" ng-show="showDiv">
+									<div class="panel-body">
+										<ul>
+											<li><a href="#">{{itemHomeAppliances1}}</a></li>
+											<li><a href="#">{{itemHomeAppliances2}}</a></li>
+											<li><a href="#">{{itemHomeAppliances3}}</a></li>
+											<li><a href="#">{{itemHomeAppliances4}}</a></li>
+											<li><a href="#">{{itemHomeAppliances5}}</a></li>
+											
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!--Womens Fashion-->
+							<div class="panel panel-default" ng-controller="toggleController">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a ng-click="showDiv=!showDiv" href="">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Women's Fashion
+										</a>
+									</h4>
+								</div>
+								<div ng-show="showDiv">
+									<div class="panel-body">
+										<ul>
+											<li><a href="#">Fendi</a></li>
+											<li><a href="#">Guess</a></li>
+											<li><a href="#">Valentino</a></li>
+											<li><a href="#">Dior</a></li>
+											<li><a href="#">Versace</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+                            <!--Mens Fashion -->
+                            <div class="panel panel-default" ng-controller="toggleController">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a ng-click="showDiv=!showDiv" href="">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											Men's Fashion
+										</a>
+									</h4>
+								</div>
+								<div ng-show="showDiv">
+									<div class="panel-body">
+										<ul>
+											<li><a href="#">Fendi</a></li>
+											<li><a href="#">Guess</a></li>
+											<li><a href="#">Valentino</a></li>
+											<li><a href="#">Dior</a></li>
+											<li><a href="#">Versace</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="">Kids</a></h4>
+								</div>
+							</div>
+                            <div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="">Daily Deals</a></h4>
+								</div>
+							</div>
+						</div><!--/category-products-->
+                    </div>
+				</div>
+                <div class="col-sm-9 padding-right" ng-controller="featuredContentController">
+                        <div class="features_items"><!--features_items-->
+                            <h2 class="title text-center">Featured Items</h2>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/product1.jpg" alt="" />
+                                                <h2>&#x20A6;{{featuredPrice1}}</h2>
+                                                <p>{{featuredProduct1}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId1, featuredProduct1, featuredPrice1, 1, featuredSellerId1)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                            <div class="product-overlay">
+                                                <div class="overlay-content">
+                                                    <h2>&#x20A6;{{featuredPrice1}}</h2>
+                                                    <p>{{featuredProduct1}}</p>
+													<a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="visitPageClick({{featuredId1}})"><i class="fa fa-shopping-cart"></i>Visit Page</a>
+                                                    <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId1, featuredProduct1, featuredPrice1, 1, featuredSellerId1)"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/home/product2.jpg" alt="" />
+                                            <h2>&#x20A6;{{featuredPrice2}}</h2>
+                                            <p>{{featuredProduct2}}</p>
+                                            <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId2, featuredProduct2, featuredPrice2, 1, featuredSellerId2)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>&#x20A6;{{featuredPrice2}}</h2>
+                                                <p>{{featuredProduct2}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId2, featuredProduct2, featuredPrice2, 1, featuredSellerId2)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/home/product3.jpg" alt="" />
+                                            <h2>&#x20A6;{{featuredPrice3}}</h2>
+                                            <p>{{featuredProduct3}}</p>
+                                            <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId3, featuredProduct3, featuredPrice3, 1, featuredSellerId3)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>&#x20A6;{{featuredPrice3}}</h2>
+                                                <p>{{featuredProduct3}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId3, featuredProduct3, featuredPrice3, 1, featuredSellerId3)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/home/product4.jpg" alt="" />
+                                            <h2>&#x20A6;{{featuredPrice4}}</h2>
+                                            <p>{{featuredProduct4}}</p>
+                                            <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId4, featuredProduct4, featuredPrice4, 1, featuredSellerId4)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>&#x20A6;{{featuredPrice4}}</h2>
+                                                <p>{{featuredProduct4}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId4, featuredProduct4, featuredPrice4, 1, featuredSellerId4)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                        <img src="images/home/new.png" class="new" alt="" />
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/home/product5.jpg" alt="" />
+                                            <h2>&#x20A6;{{featuredPrice5}}</h2>
+                                            <p>{{featuredProduct5}}</p>
+                                            <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId5, featuredProduct5, featuredPrice5, 1, featuredSellerId5)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>&#x20A6;{{featuredPrice5}}</h2>
+                                                <p>{{featuredProduct5}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId5, featuredProduct5, featuredPrice5, 1, featuredSellerId5)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                        <img src="images/home/sale.png" class="new" alt="" />
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="images/home/product6.jpg" alt="" />
+                                            <h2>&#x20A6;{{featuredPrice6}}</h2>
+                                            <p>{{featuredProduct6}}</p>
+                                            <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId6, featuredProduct6, featuredPrice6, 1, featuredSellerId6)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>&#x20A6;{{featuredPrice6}}</h2>
+                                                <p>{{featuredProduct6}}</p>
+                                                <a href="" class="btn btn-default add-to-cart" ng-controller="cartController" ng-click="cartClick(featuredId6, featuredProduct6, featuredPrice6, 1, featuredSellerId6)"> <i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+							<div class="hidden-xs col-lg-3 "  style="position:fixed; bottom:10; left:6%; z-index:100;">
+								<button class="btn btn-default" ng-click="visible=!visible"> Toggle Cart History</button>
+								<br><br>
+								<div class="panel panel-default" ng-show="visible"><div class="panel-heading"><h3><small>Cart History</small></h3></div>
+									<div id="boughtItems" class="list-group" style="max-height:200px; overflow-y:auto;">
+										<div class="scrollbar-inner">
+											<a href="/cart" class="list-group-item" ng-repeat="x in addToCartMessage">{{x.message}}</a>
+										</div>
+									</div>
+								</div>
+							</div>
+									
+                        </div><!--features_items-->
+                        
+                        <div class="category-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#snippetPhonesTablets" data-toggle="tab">Phones/Tablets</a></li>
+								<li><a href="#snippetHomeAppliances" data-toggle="tab">Home Appliances</a></li>
+								<li><a href="#sunglass" data-toggle="tab">Women's Fashion</a></li>
+								<li><a href="#kids" data-toggle="tab">Men's Fashion</a></li>
+								<li><a href="#poloshirt" data-toggle="tab">Kids</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+							<div class="tab-pane fade active in" id="snippetPhonesTablets" ng-controller="snippetPhonesTablets" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt=""/>
+												<h2>&#x20A6;{{snippetPhonesTabletsPrice[0]}}</h2>
+												<p>{{snippetPhonesTabletsName[0]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt=""/>
+												<h2>&#x20A6;{{snippetPhonesTabletsPrice[1]}}</h2>
+												<p>{{snippetPhonesTabletsName[1]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt=""/>
+												<h2>&#x20A6;{{snippetPhonesTabletsPrice[2]}}</h2>
+												<p>{{snippetPhonesTabletsName[2]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt=""/>
+												<h2>&#x20A6;{{snippetPhonesTabletsPrice[3]}}</h2>
+												<p>{{snippetPhonesTabletsName[3]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="snippetHomeAppliances" ng-controller="snippetHomeAppliances" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt="" />
+												<h2>&#x20A6;{{snippetHomeAppliancesPrice[0]}}</h2>
+												<p>{{snippetHomeAppliancesName[0]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt="" />
+												<h2>&#x20A6;{{snippetHomeAppliancesPrice[1]}}</h2>
+												<p>{{snippetHomeAppliancesName[1]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt="" />
+												<h2>&#x20A6;{{snippetHomeAppliancesPrice[2]}}</h2>
+												<p>{{snippetHomeAppliancesName[2]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2>&#x20A6;{{snippetHomeAppliancesPrice[3]}}</h2>
+												<p>{{snippetHomeAppliancesName[3]}}</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="sunglass" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="kids" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="poloshirt" >
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery2.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery4.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery3.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt="" />
+												<h2>$56</h2>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+                    <div class="recommended_items"><!--recommended_items-->
+						<h2 class="title text-center">recommended items</h2>
+						
+						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner">
+								<div class="item active">	
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend1.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend2.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend3.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="item">	
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend1.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend2.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="images/home/recommend3.jpg" alt="" />
+													<h2>$56</h2>
+													<p>Easy Polo Black Edition</p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							  </a>
+							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							  </a>			
+						</div>
+					</div><!--/recommended_items-->
+                    </div>
+			    </div>
+            </div>
+        </section>
+		<footer id="footer"><!--Footer-->
+			<div class="footer-widget">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-2">
+							<div class="single-widget">
+								<h2>Service</h2>
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="">Online Help</a></li>
+									<li><a href="">Contact Us</a></li>
+									<li><a href="">Order Status</a></li>
+									<li><a href="">Change Location</a></li>
+									<li><a href="">FAQ’s</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="single-widget">
+								<h2>Quock Shop</h2>
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="">T-Shirt</a></li>
+									<li><a href="">Mens</a></li>
+									<li><a href="">Womens</a></li>
+									<li><a href="">Gift Cards</a></li>
+									<li><a href="">Shoes</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="single-widget">
+								<h2>Policies</h2>
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="">Terms of Use</a></li>
+									<li><a href="">Privecy Policy</a></li>
+									<li><a href="">Refund Policy</a></li>
+									<li><a href="">Billing System</a></li>
+									<li><a href="">Ticket System</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="single-widget">
+								<h2>About Shopper</h2>
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="">Company Information</a></li>
+									<li><a href="">Careers</a></li>
+									<li><a href="">Store Location</a></li>
+									<li><a href="">Affillate Program</a></li>
+									<li><a href="">Copyright</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-sm-3 col-sm-offset-1">
+							<div class="single-widget">
+								<h2>About Shopper</h2>
+								<form action="#" class="searchform">
+									<input type="text" placeholder="Your email address" />
+									<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+									<p>Get the most recent updates from <br />our site and be updated your self...</p>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<p class="pull-left">© ShopperNG 2016. All rights reserved.</p>
+						
+					</div>
+				</div>
+			</div>
+			
+		</footer><!--/Footer-->
+		
+        <script src="jquery.js"></script>
+        <script src="jquery.scrollUp.min.js"></script>
+		<script src="malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.js"></script>
+        <script src="angular.min.js"></script>
+        <script src="angularapp.js"></script>
+        <script src="bootstrap.min.js"></script>
+        <script src="price-range.js"></script>
+        <script src="jquery.prettyPhoto.js"></script>
+        <script src="main.js"></script>
+		<script>
+			(function($){
+				$(window).on("load",function(){
+					$("#boughtItems").mCustomScrollbar({theme:"dark"});
+					
+				});
+			})(jQuery);
+		</script>
+    </body>
+</html>
