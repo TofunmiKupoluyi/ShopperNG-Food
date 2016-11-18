@@ -8,33 +8,23 @@
         <link href="css/animate.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="css/responsive.css" rel="stylesheet">
-        <title> Login | ShopperNG </title> 
+        <title> Shawarma and Coke </title> 
+        <style>
+            #titleImage{
+                max-width: 300px;
+                height: auto;
+            }
+        </style>
     </head>
     <body>
         <header id="header"><!--header-->
-            <div class="header_top"><!--header_top-->
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="contactinfo">
-                                <ul class="nav nav-pills">
-                                    <li><a href=""><i class="fa fa-phone"></i> +234 705 753 8496</a></li>
-                                    <li><a href=""><i class="glyphicon glyphicon-envelope"></i> info@shopperng.com</a></li><!--email link -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/header_top-->
-
-
             <div class="header-middle"><!--header-middle-->
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="logo pull-left">
-                                <a href="/"><img src="images/logo3.png" alt="400" /></a>
-                            </div>
+                        <div class="col-sm-12">
+                            <center><div class="logo">
+                                <h1><small>SHAWARMA AND COKE</small></h1>
+                            </div></center>
                         </div>
                     </div>
                 </div>
@@ -49,25 +39,24 @@
                         <div class="product-details"><!--product-details-->
                             <div class="col-sm-5">
                                 <div class="view-product">
-                                    <img src="images/product-details/1.jpg" alt="" />
+                                    <img id="titleImage" src="images/1476185673-9573.jpeg" alt="" />
                                 </div>
                             </div>
-                            <div class="col-sm-7" ng-controller="orderController">
+                            <div class="col-sm-7" ng-controller="orderController" ng-cloak>
                                 <div class="product-information"><!--/product-information-->
                                     <div ng-show="showDiv">
-                                        <h2>Small Chops + Coke</h2>
+                                        <b><h2>Shawarma + Coke</h2></b>
                                         <p>Web ID: 1089772</p>
                                         
                                         <span>
-                                            <span>&#8358; 100</span>
-                                            <label>Quantity:</label>
-                                            <input type="text" value="{{quantity}}" />
+                                            <span>&#8358; 1400</span>
                                             <button type="button" class="btn btn-fefault cart" ng-click="onOrderClick()">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 Place Order
                                             </button>
                                         </span>
-                                        <p><b>Availability:</b> In Stock</p>
+                                        <br>
+                                        <p><b>Availability:</b> Limited</p>
                                         <p><b>Condition:</b> Freshly Prepared</p>
                                         <p><b>Brand:</b> The Place</p>
                                     </div>
@@ -76,14 +65,16 @@
                                             <div class="col-sm-10">
                                                 <h2>Personal Details </h2>
                                                 <hr>
-                                                <input class="form-control" placeholder="Enter full name"></input>
+                                                <input id="name" class="form-control" placeholder="Enter full name" style="box-shadow:0 0"></input>
+                                                <br>
+                                                <input id="email" class="form-control" placeholder="Enter email" style="box-shadow:0 0" type="email"></input>
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-xs-6">
                                                         <button class="form-control" type="button" ng-click="onBackClick()"><b>Back</b></button>
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        <button class="form-control" type="button"><b>Pay</b></button>
+                                                        <button class="form-control" type="button" id="flwgetpaidaddon-9009"><b>Pay</b></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,14 +87,14 @@
                         <div class="category-tab shop-details-tab"><!--category-tab-->
                             <div class="col-sm-12">
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#reviews" data-toggle="tab"><b>Send in a review</b></a></li>
+                                    <li class="active"><a href="#reviews" data-toggle="tab"><b>Suggestions/ Reviews</b></a></li>
                                 </ul>
                             </div>
                             <div class="tab-content">                
                                 <div class="tab-pane fade active in" id="reviews" >
                                     <div class="col-sm-12">
                                         
-                                        <form action="#">
+                                        <!--<form action="#">
                                             <span>
                                                 <input type="text" placeholder="Your Name"/>
                                                 <input type="email" placeholder="Email Address"/>
@@ -113,7 +104,9 @@
                                             <button type="button" class="btn btn-default pull-right">
                                                 Submit
                                             </button>
-                                        </form>
+                                        </form>-->
+                                         <div id="disqus_thread"></div>
+                                        
                                     </div>
                                 </div>
                                 
@@ -123,7 +116,65 @@
                 </div>
             </div>
 	    </section>
+       
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        <script type="text/javascript" src="https://flwv.herokuapp.com/flwv3-pug/getpaid/api/flwpbf-inline.js"></script>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function(event) {
+
+            document.getElementById('flwgetpaidaddon-9009').addEventListener('click', function () { 
+                var name= document.getElementById("name").value;
+                var email= document.getElementById("email").value;
+                if(name && email){
+                    var random= Date.now();
+                    document.getElementById("name").style.bordercolor="";
+                    getpaidSetup({customer_email:email,amount:1400,txref:"SWCK-"+random,customer_firstname:name,PBFPubKey:'FLWPUBK-a802506e221287b3f87482faa651b8e9',pay_button_text:"PAY N9900",custom_description:"Shawarma and Coke for "+name, custom_title:"Shawarma and Coke",redirhect_url:"/?thankyou=true", onclose:function(){ console.warn('Onclose was called'); },callback:function(d){ console.log(d,"Called from iframe something"); },meta:[{metaname:'flightid',metavalue:'93849-MK5000', callback:function(response){
+                        console.log(response);
+                    }}]});
+                }
+                if(!(name)&&!(email)){
+                    document.getElementById("name").style.borderColor="red";
+                    document.getElementById("email").style.borderColor="red";
+                }
+                else if(!(name)){
+                    document.getElementById("name").style.borderColor="red";
+                }
+                else if(!(email)){
+                    document.getElementById("email").style.borderColor="red";
+                }
+                
+            });
+
+            });
+
+            function closecb() {
+                alert('eclose am');
+            }
+        </script>
+        <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+            
+            var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            
+            (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+                var d = document, s = d.createElement('script');
+                
+                s.src = '//shawamandcoke.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+                
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
         <script src="angular.min.js"></script>
         <script src="angularapp.js"></script>
+        <script id="dsq-count-scr" src="//shawamandcoke.disqus.com/count.js" async></script>
     </body>
 </html>

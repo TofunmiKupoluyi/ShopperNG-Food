@@ -30,10 +30,15 @@ app.use(function(err, req, res, next) {
   res.status(500).send(err);
 });
 homeRouter.get("/", function(request, response){
-    request.session.initialize="Hello";
-    console.log(request.session.initialize);
-    console.log(connection._protocol._config);
-    response.sendfile("./productDetails.html");
+    if(request.query.thankyou){
+        response.sendfile("./thankyou.html");
+    }
+    else{
+        request.session.initialize="Hello";
+        console.log(request.session.initialize);
+        console.log(connection._protocol._config);
+        response.sendfile("./productDetails.html");
+    }
 });
 
 console.log('We are live!!!!');
