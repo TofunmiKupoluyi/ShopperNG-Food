@@ -130,7 +130,7 @@
                 if(name && email){
                     var random= Date.now();
                     document.getElementById("name").style.bordercolor="";
-                    getpaidSetup({customer_email:email,amount:1400,txref:"SWCK-"+random,customer_firstname:name,PBFPubKey:'FLWPUBK-a802506e221287b3f87482faa651b8e9',custom_description:"Shawarma and Coke for "+name, custom_title:"Shawarma and Coke",redirhect_url:"https://shawarmacoke.herokuapp.com/?thankyou=true", onclose:function(){ console.warn('Onclose was called'); },callback:function(d){ console.log(d,"Called from iframe something"); },meta:[{metaname:'flightid',metavalue:'93849-MK5000', callback:function(response){
+                    getpaidSetup({customer_email:email,amount:1400,txref:"SWCK-"+random,customer_firstname:name,PBFPubKey:'FLWPUBK-a802506e221287b3f87482faa651b8e9',custom_description:"Shawarma and Coke for "+name, custom_title:"Shawarma and Coke",custom_logo:"images/1476185673-9573.jpeg",redirhect_url:"https://shawarmacoke.herokuapp.com/?thankyou=true", onclose:function(){ console.warn('Onclose was called'); },callback:function(d){ console.log(d,"Called from iframe something"); },meta:[{metaname:'flightid',metavalue:'93849-MK5000', callback:function(response){
                         console.log(response);
                     }}]});
                 }
